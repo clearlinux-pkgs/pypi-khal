@@ -1,0 +1,11 @@
+0.10.4
+pypi(atomicwrites)
+pypi(click)
+pypi(click_log)
+pypi(configobj)
+pypi(icalendar)
+pypi(python_dateutil)
+pypi(pytz)
+pypi(pyxdg)
+pypi(tzlocal)
+pypi(urwid)
