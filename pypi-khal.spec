@@ -21,7 +21,7 @@ BuildRequires : buildreq-distutils3
 Provides: khal
 Provides: khal-python
 Provides: khal-python3
-BuildRequires : pluggy
+BuildRequires : pypi(pluggy)
 BuildRequires : py-python
 BuildRequires : pypi(atomicwrites)
 BuildRequires : pypi(click)
@@ -36,7 +36,7 @@ BuildRequires : pypi(tzlocal)
 BuildRequires : pypi(urwid)
 BuildRequires : pytest
 BuildRequires : tox
-BuildRequires : virtualenv
+BuildRequires : pypi(virtualenv)
 
 %description
 khal
