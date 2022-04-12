@@ -6,7 +6,7 @@
 #
 Name     : pypi-khal
 Version  : 0.10.4
-Release  : 54
+Release  : 55
 URL      : https://files.pythonhosted.org/packages/7a/d8/9718385de260ebc07ff48c838e22fde6b05d143f1f8ab81ff1c8718d7102/khal-0.10.4.tar.gz
 Source0  : https://files.pythonhosted.org/packages/7a/d8/9718385de260ebc07ff48c838e22fde6b05d143f1f8ab81ff1c8718d7102/khal-0.10.4.tar.gz
 Source1  : https://files.pythonhosted.org/packages/7a/d8/9718385de260ebc07ff48c838e22fde6b05d143f1f8ab81ff1c8718d7102/khal-0.10.4.tar.gz.asc
@@ -108,7 +108,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1641840600
+export SOURCE_DATE_EPOCH=1649777318
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
