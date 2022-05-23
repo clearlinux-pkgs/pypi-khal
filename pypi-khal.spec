@@ -6,7 +6,7 @@
 #
 Name     : pypi-khal
 Version  : 0.10.4
-Release  : 55
+Release  : 56
 URL      : https://files.pythonhosted.org/packages/7a/d8/9718385de260ebc07ff48c838e22fde6b05d143f1f8ab81ff1c8718d7102/khal-0.10.4.tar.gz
 Source0  : https://files.pythonhosted.org/packages/7a/d8/9718385de260ebc07ff48c838e22fde6b05d143f1f8ab81ff1c8718d7102/khal-0.10.4.tar.gz
 Source1  : https://files.pythonhosted.org/packages/7a/d8/9718385de260ebc07ff48c838e22fde6b05d143f1f8ab81ff1c8718d7102/khal-0.10.4.tar.gz.asc
@@ -102,13 +102,16 @@ python3 components for the pypi-khal package.
 %prep
 %setup -q -n khal-0.10.4
 cd %{_builddir}/khal-0.10.4
+pushd ..
+cp -a khal-0.10.4 buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1649777318
+export SOURCE_DATE_EPOCH=1653341061
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
@@ -117,6 +120,15 @@ export CXXFLAGS="$CXXFLAGS -fno-lto "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
+pushd ../buildavx2/
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3 "
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
+python3 setup.py build
+
+popd
 %install
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
@@ -127,10 +139,19 @@ python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
+pushd ../buildavx2/
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3 "
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
+python3 -tt setup.py build install --root=%{buildroot}-v3
+popd
 ## install_append content
 mkdir -p %{buildroot}/usr/share/defaults/khal/
 cp khal.conf.sample %{buildroot}/usr/share/defaults/khal/
 ## install_append end
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
