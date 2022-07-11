@@ -4,7 +4,7 @@
 #
 Name     : pypi-khal
 Version  : 0.10.5
-Release  : 57
+Release  : 58
 URL      : https://files.pythonhosted.org/packages/d8/99/6ef24e33472b343800ffb7300e9702faa715ccd986a0a0706f01e44d8cb6/khal-0.10.5.tar.gz
 Source0  : https://files.pythonhosted.org/packages/d8/99/6ef24e33472b343800ffb7300e9702faa715ccd986a0a0706f01e44d8cb6/khal-0.10.5.tar.gz
 Summary  : A standards based terminal calendar
@@ -12,6 +12,7 @@ Group    : Development/Tools
 License  : MIT
 Requires: pypi-khal-bin = %{version}-%{release}
 Requires: pypi-khal-data = %{version}-%{release}
+Requires: pypi-khal-license = %{version}-%{release}
 Requires: pypi-khal-python = %{version}-%{release}
 Requires: pypi-khal-python3 = %{version}-%{release}
 Requires: pypi(click_log)
@@ -33,6 +34,7 @@ BuildRequires : pypi-pluggy
 BuildRequires : pypi-pytest
 BuildRequires : pypi-tox
 BuildRequires : pypi-virtualenv
+Patch1: 0001-Migrate-to-atomicwrites_homeassistant.patch
 
 %description
 khal
@@ -44,6 +46,7 @@ khal
 Summary: bin components for the pypi-khal package.
 Group: Binaries
 Requires: pypi-khal-data = %{version}-%{release}
+Requires: pypi-khal-license = %{version}-%{release}
 
 %description bin
 bin components for the pypi-khal package.
@@ -55,6 +58,14 @@ Group: Data
 
 %description data
 data components for the pypi-khal package.
+
+
+%package license
+Summary: license components for the pypi-khal package.
+Group: Default
+
+%description license
+license components for the pypi-khal package.
 
 
 %package python
@@ -89,6 +100,7 @@ python3 components for the pypi-khal package.
 %prep
 %setup -q -n khal-0.10.5
 cd %{_builddir}/khal-0.10.5
+%patch1 -p1
 pushd ..
 cp -a khal-0.10.5 buildavx2
 popd
@@ -98,7 +110,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656343167
+export SOURCE_DATE_EPOCH=1657569576
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
@@ -119,6 +131,9 @@ popd
 %install
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/pypi-khal
+cp %{_builddir}/khal-0.10.5/COPYING %{buildroot}/usr/share/package-licenses/pypi-khal/0b045114e6e06c4f7d3755c79d2b382f3a4b59ee
+cp %{_builddir}/khal-0.10.5/doc/source/license.rst %{buildroot}/usr/share/package-licenses/pypi-khal/e82c6215d146a2f2fbb37ba5515f18c76a051324
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -148,6 +163,11 @@ cp khal.conf.sample %{buildroot}/usr/share/defaults/khal/
 %files data
 %defattr(-,root,root,-)
 /usr/share/defaults/khal/khal.conf.sample
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/pypi-khal/0b045114e6e06c4f7d3755c79d2b382f3a4b59ee
+/usr/share/package-licenses/pypi-khal/e82c6215d146a2f2fbb37ba5515f18c76a051324
 
 %files python
 %defattr(-,root,root,-)
