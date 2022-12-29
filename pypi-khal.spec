@@ -4,7 +4,7 @@
 #
 Name     : pypi-khal
 Version  : 0.10.5
-Release  : 64
+Release  : 65
 URL      : https://files.pythonhosted.org/packages/d8/99/6ef24e33472b343800ffb7300e9702faa715ccd986a0a0706f01e44d8cb6/khal-0.10.5.tar.gz
 Source0  : https://files.pythonhosted.org/packages/d8/99/6ef24e33472b343800ffb7300e9702faa715ccd986a0a0706f01e44d8cb6/khal-0.10.5.tar.gz
 Summary  : A standards based terminal calendar
@@ -34,6 +34,9 @@ BuildRequires : pypi-pluggy
 BuildRequires : pypi-pytest
 BuildRequires : pypi-tox
 BuildRequires : pypi-virtualenv
+# Suppress stripping binaries
+%define __strip /bin/true
+%define debug_package %{nil}
 
 %description
 khal
@@ -108,12 +111,12 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1659549345
+export SOURCE_DATE_EPOCH=1672286717
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$FFLAGS -fno-lto "
-export FFLAGS="$FFLAGS -fno-lto "
-export CXXFLAGS="$CXXFLAGS -fno-lto "
+export CFLAGS="$CFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FCFLAGS="$FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FFLAGS="$FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CXXFLAGS="$CXXFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
@@ -130,8 +133,8 @@ popd
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/pypi-khal
-cp %{_builddir}/khal-%{version}/COPYING %{buildroot}/usr/share/package-licenses/pypi-khal/0b045114e6e06c4f7d3755c79d2b382f3a4b59ee
-cp %{_builddir}/khal-%{version}/doc/source/license.rst %{buildroot}/usr/share/package-licenses/pypi-khal/e82c6215d146a2f2fbb37ba5515f18c76a051324
+cp %{_builddir}/khal-%{version}/COPYING %{buildroot}/usr/share/package-licenses/pypi-khal/0b045114e6e06c4f7d3755c79d2b382f3a4b59ee || :
+cp %{_builddir}/khal-%{version}/doc/source/license.rst %{buildroot}/usr/share/package-licenses/pypi-khal/e82c6215d146a2f2fbb37ba5515f18c76a051324 || :
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
