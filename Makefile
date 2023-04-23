@@ -1,5 +1,5 @@
 PKG_NAME := pypi-khal
-URL = https://files.pythonhosted.org/packages/d8/99/6ef24e33472b343800ffb7300e9702faa715ccd986a0a0706f01e44d8cb6/khal-0.10.5.tar.gz
+URL = https://files.pythonhosted.org/packages/15/4f/c547cff823256abbbc4810b1c19bbe0813e1e58cca6f05eb51478920ef36/khal-0.11.1.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
