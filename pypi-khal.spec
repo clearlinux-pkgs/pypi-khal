@@ -4,10 +4,10 @@
 # Using build pattern: distutils3
 #
 Name     : pypi-khal
-Version  : 0.11.1
-Release  : 67
-URL      : https://files.pythonhosted.org/packages/15/4f/c547cff823256abbbc4810b1c19bbe0813e1e58cca6f05eb51478920ef36/khal-0.11.1.tar.gz
-Source0  : https://files.pythonhosted.org/packages/15/4f/c547cff823256abbbc4810b1c19bbe0813e1e58cca6f05eb51478920ef36/khal-0.11.1.tar.gz
+Version  : 0.11.2
+Release  : 68
+URL      : https://files.pythonhosted.org/packages/68/ac/e94853c63676a536b3cdd758442a5df678bbe42eed06e46673fc5ba97d72/khal-0.11.2.tar.gz
+Source0  : https://files.pythonhosted.org/packages/68/ac/e94853c63676a536b3cdd758442a5df678bbe42eed06e46673fc5ba97d72/khal-0.11.2.tar.gz
 Summary  : A standards based terminal calendar
 Group    : Development/Tools
 License  : MIT
@@ -19,18 +19,7 @@ Requires: pypi-khal-python3 = %{version}-%{release}
 Requires: pypi(click_log)
 Requires: pypi(urwid)
 BuildRequires : buildreq-distutils3
-BuildRequires : pypi(atomicwrites)
-BuildRequires : pypi(click)
-BuildRequires : pypi(click_log)
-BuildRequires : pypi(configobj)
-BuildRequires : pypi(icalendar)
 BuildRequires : pypi(py)
-BuildRequires : pypi(python_dateutil)
-BuildRequires : pypi(pytz)
-BuildRequires : pypi(pyxdg)
-BuildRequires : pypi(setuptools_scm)
-BuildRequires : pypi(tzlocal)
-BuildRequires : pypi(urwid)
 BuildRequires : pypi-pluggy
 BuildRequires : pypi-pytest
 BuildRequires : pypi-tox
@@ -101,10 +90,10 @@ python3 components for the pypi-khal package.
 
 
 %prep
-%setup -q -n khal-0.11.1
-cd %{_builddir}/khal-0.11.1
+%setup -q -n khal-0.11.2
+cd %{_builddir}/khal-0.11.2
 pushd ..
-cp -a khal-0.11.1 buildavx2
+cp -a khal-0.11.2 buildavx2
 popd
 
 %build
@@ -112,12 +101,12 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1682271870
+export SOURCE_DATE_EPOCH=1686678320
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FCFLAGS="$FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FFLAGS="$FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz "
-export CXXFLAGS="$CXXFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CFLAGS="$CFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FCFLAGS="$FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FFLAGS="$FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export CXXFLAGS="$CXXFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
