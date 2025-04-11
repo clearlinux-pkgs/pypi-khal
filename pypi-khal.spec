@@ -7,7 +7,7 @@
 #
 Name     : pypi-khal
 Version  : 0.11.4
-Release  : 75
+Release  : 76
 URL      : https://files.pythonhosted.org/packages/fd/3b/a9a2c4b5f20f66ca62d476c6218454c69a61bb2a82e8b582a1ca00615d8d/khal-0.11.4.tar.gz
 Source0  : https://files.pythonhosted.org/packages/fd/3b/a9a2c4b5f20f66ca62d476c6218454c69a61bb2a82e8b582a1ca00615d8d/khal-0.11.4.tar.gz
 Summary  : Standards based terminal calendar
@@ -104,7 +104,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1744381320
+export SOURCE_DATE_EPOCH=1744388632
 export GCC_IGNORE_WERROR=1
 CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
@@ -117,6 +117,7 @@ FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
 export MAKEFLAGS=%{?_smp_mflags}
+pypi-dep-fix.py . icalendar
 python3 -m build --wheel --skip-dependency-check --no-isolation
 
 pushd ../buildavx2/
@@ -125,6 +126,7 @@ CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -march=x86-64-v3 -Wl,-z,x86-64-v3 "
 FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -march=x86-64-v3 -Wl,-z,x86-64-v3 "
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS -march=x86-64-v3 "
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS -march=x86-64-v3 "
+pypi-dep-fix.py . icalendar
 python3 -m build --wheel --skip-dependency-check --no-isolation
 
 popd
@@ -147,6 +149,7 @@ mkdir -p %{buildroot}/usr/share/package-licenses/pypi-khal
 cp %{_builddir}/khal-%{version}/COPYING %{buildroot}/usr/share/package-licenses/pypi-khal/0b045114e6e06c4f7d3755c79d2b382f3a4b59ee || :
 cp %{_builddir}/khal-%{version}/doc/source/license.rst %{buildroot}/usr/share/package-licenses/pypi-khal/e82c6215d146a2f2fbb37ba5515f18c76a051324 || :
 python3 -m installer --destdir=%{buildroot} dist/*.whl
+pypi-dep-fix.py %{buildroot} icalendar
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
