@@ -7,7 +7,7 @@
 #
 Name     : pypi-khal
 Version  : 0.11.4
-Release  : 76
+Release  : 77
 URL      : https://files.pythonhosted.org/packages/fd/3b/a9a2c4b5f20f66ca62d476c6218454c69a61bb2a82e8b582a1ca00615d8d/khal-0.11.4.tar.gz
 Source0  : https://files.pythonhosted.org/packages/fd/3b/a9a2c4b5f20f66ca62d476c6218454c69a61bb2a82e8b582a1ca00615d8d/khal-0.11.4.tar.gz
 Summary  : Standards based terminal calendar
@@ -104,7 +104,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1744388632
+export SOURCE_DATE_EPOCH=1744393803
 export GCC_IGNORE_WERROR=1
 CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
@@ -161,6 +161,9 @@ FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS -march=x86-64-v3 "
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS -march=x86-64-v3 "
 python3 -m installer --destdir=%{buildroot}-v3 dist/*.whl
 popd
+## Remove excluded files
+rm -f %{buildroot}*/usr/lib/python3.13/site-packages/tests/__init__.py
+rm -f %{buildroot}*/usr/lib/python3.13/site-packages/tests/__pycache__/__init__.cpython-313.pyc
 ## install_append content
 mkdir -p %{buildroot}/usr/share/defaults/khal/
 cp khal.conf.sample %{buildroot}/usr/share/defaults/khal/
