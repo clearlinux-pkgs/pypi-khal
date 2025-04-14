@@ -6,10 +6,10 @@
 # autospec commit: a88ffdc
 #
 Name     : pypi-khal
-Version  : 0.11.4
-Release  : 77
-URL      : https://files.pythonhosted.org/packages/fd/3b/a9a2c4b5f20f66ca62d476c6218454c69a61bb2a82e8b582a1ca00615d8d/khal-0.11.4.tar.gz
-Source0  : https://files.pythonhosted.org/packages/fd/3b/a9a2c4b5f20f66ca62d476c6218454c69a61bb2a82e8b582a1ca00615d8d/khal-0.11.4.tar.gz
+Version  : 0.12.0
+Release  : 78
+URL      : https://files.pythonhosted.org/packages/ce/17/4e747ffe461fbdaefed6c703a9343c560a7316d25774aca2aa9935ffd117/khal-0.12.0.tar.gz
+Source0  : https://files.pythonhosted.org/packages/ce/17/4e747ffe461fbdaefed6c703a9343c560a7316d25774aca2aa9935ffd117/khal-0.12.0.tar.gz
 Summary  : Standards based terminal calendar
 Group    : Development/Tools
 License  : MIT
@@ -93,10 +93,10 @@ python3 components for the pypi-khal package.
 
 
 %prep
-%setup -q -n khal-0.11.4
-cd %{_builddir}/khal-0.11.4
+%setup -q -n khal-0.12.0
+cd %{_builddir}/khal-0.12.0
 pushd ..
-cp -a khal-0.11.4 buildavx2
+cp -a khal-0.12.0 buildavx2
 popd
 
 %build
@@ -104,7 +104,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1744393803
+export SOURCE_DATE_EPOCH=1744639658
 export GCC_IGNORE_WERROR=1
 CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
